@@ -37,7 +37,7 @@ export default function Home() {
             <Button className="w-full h-24 text-xl rounded-2xl bg-gradient-to-r from-pink-500 to-orange-400 hover:from-pink-600 hover:to-orange-500 shadow-lg">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold">Kids</span>
-                <span className="text-sm font-normal">Ages 6-12</span>
+                <span className="text-sm font-normal">Ages 7-12</span>
               </div>
             </Button>
           </Link>
@@ -46,7 +46,7 @@ export default function Home() {
             <Button className="w-full h-24 text-xl rounded-2xl bg-gradient-to-r from-blue-500 to-teal-400 hover:from-blue-600 hover:to-teal-500 shadow-lg">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold">Teens</span>
-                <span className="text-sm font-normal">Ages 13-19</span>
+                <span className="text-sm font-normal">Ages 13-18</span>
               </div>
             </Button>
           </Link>
@@ -55,7 +55,7 @@ export default function Home() {
             <Button className="w-full h-24 text-xl rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-400 hover:from-purple-600 hover:to-indigo-500 shadow-lg">
               <div className="flex flex-col">
                 <span className="text-2xl font-bold">Adults</span>
-                <span className="text-sm font-normal">Ages 20+</span>
+                <span className="text-sm font-normal">Ages 18+</span>
               </div>
             </Button>
           </Link>
