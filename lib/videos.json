@@ -1,0 +1,93 @@
+{
+  "kids": {
+    "1": {
+      "title": "Be Proactive - Kids Version",
+      "url": "https://www.youtube.com/embed/xvFZjo5PgG0?autoplay=1"
+    },
+    "2": {
+      "title": "Begin With the End in Mind - Kids Version",
+      "url": "https://www.youtube.com/embed/GGbXcVJgQAw"
+    },
+    "3": {
+      "title": "Put First Things First - Kids Version",
+      "url": "https://www.youtube.com/embed/qMm1i6Kn0dw"
+    },
+    "4": {
+      "title": "Think Win-Win - Kids Version",
+      "url": "https://www.youtube.com/embed/N0xtGERQnXM"
+    },
+    "5": {
+      "title": "Seek First to Understand - Kids Version",
+      "url": "https://www.youtube.com/embed/HUxi-Zc45tA"
+    },
+    "6": {
+      "title": "Synergize - Kids Version",
+      "url": "https://www.youtube.com/embed/UwXv1VkXT3o"
+    },
+    "7": {
+      "title": "Sharpen the Saw - Kids Version",
+      "url": "https://www.youtube.com/embed/oAcWh3vn9_s"
+    }
+  },
+  "teens": {
+    "1": {
+      "title": "Be Proactive - Teen Version",
+      "url": "https://www.youtube.com/embed/9ZvmVOxQujI"
+    },
+    "2": {
+      "title": "Begin With the End in Mind - Teen Version",
+      "url": "https://www.youtube.com/embed/gBNvOCrLERs"
+    },
+    "3": {
+      "title": "Put First Things First - Teen Version",
+      "url": "https://www.youtube.com/embed/17lNs9EFOYI"
+    },
+    "4": {
+      "title": "Think Win-Win - Teen Version",
+      "url": "https://www.youtube.com/embed/7ZJkS3dwVho"
+    },
+    "5": {
+      "title": "Seek First to Understand - Teen Version",
+      "url": "https://www.youtube.com/embed/lK0YvWwDg6A"
+    },
+    "6": {
+      "title": "Synergize - Teen Version",
+      "url": "https://www.youtube.com/embed/ZD6aYbQzCNI"
+    },
+    "7": {
+      "title": "Sharpen the Saw - Teen Version",
+      "url": "https://www.youtube.com/embed/3rvwQIQaGcE"
+    }
+  },
+  "adults": {
+    "1": {
+      "title": "Be Proactive - Adult Version",
+      "url": "https://www.youtube.com/embed/zNpVIpGlRKk"
+    },
+    "2": {
+      "title": "Begin With the End in Mind - Adult Version",
+      "url": "https://www.youtube.com/embed/VmcSNcpR-dE"
+    },
+    "3": {
+      "title": "Put First Things First - Adult Version",
+      "url": "https://www.youtube.com/embed/zV1t4G4SLMw"
+    },
+    "4": {
+      "title": "Think Win-Win - Adult Version",
+      "url": "https://www.youtube.com/embed/2X_hOY0W2wI"
+    },
+    "5": {
+      "title": "Seek First to Understand - Adult Version",
+      "url": "https://www.youtube.com/embed/HUxi-Zc45tA"
+    },
+    "6": {
+      "title": "Synergize - Adult Version",
+      "url": "https://www.youtube.com/embed/ZD6aYbQzCNI"
+    },
+    "7": {
+      "title": "Sharpen the Saw - Adult Version",
+      "url": "https://www.youtube.com/embed/RTgX3N9jkO8"
+    }
+  }
+}
+
