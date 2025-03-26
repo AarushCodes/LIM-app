@@ -1,6 +1,6 @@
 "use client"
-
 import { useState } from "react"
+import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -9,11 +9,18 @@ import { ChevronLeft, Play, CheckCircle, BookOpen, BarChart } from "lucide-react
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { VideoModal } from "@/components/video-modal"
 import { StoryModal } from "@/components/story-modal"
+import { HabitTracker } from "@/components/habit-tracker"
+import { WeeklyPlanner } from "@/components/weekly-planner"
+import { MissionStatement } from "@/components/mission-statement"
+import { HabitGames } from "@/components/habit-games"
+import { PhotoGallery } from "@/components/photo-gallery"
 import videos from "@/lib/videos.json"
 import resources from "@/lib/resources.json"
 
 export default function HabitPage({ params }: { params: { id: string } }) {
-  const habitId = Number.parseInt(params.id)
+  // Simply access params directly in client components
+  const resolvedParams = React.use(params)
+  const habitId = Number.parseInt(resolvedParams.id)
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [isStoryModalOpen, setIsStoryModalOpen] = useState(false)
   const [reflections, setReflections] = useState<Record<string, string>>({})
@@ -287,10 +294,12 @@ export default function HabitPage({ params }: { params: { id: string } }) {
         </div>
 
         <Tabs defaultValue="learn" className="mb-6">
-          <TabsList className="grid grid-cols-3 mb-4">
+          <TabsList className="grid grid-cols-5 mb-4">
             <TabsTrigger value="learn">Learn</TabsTrigger>
             <TabsTrigger value="practice">Practice</TabsTrigger>
-            <TabsTrigger value="reflect">Think About It</TabsTrigger>
+            <TabsTrigger value="track">Track</TabsTrigger>
+            <TabsTrigger value="create">Create</TabsTrigger>
+            <TabsTrigger value="reflect">Think</TabsTrigger>
           </TabsList>
 
           <TabsContent value="learn" className="space-y-4">
@@ -351,16 +360,35 @@ export default function HabitPage({ params }: { params: { id: string } }) {
               </CardContent>
             </Card>
 
-            <div className="grid grid-cols-2 gap-4">
-              <Button className="h-20 rounded-xl bg-gradient-to-r from-pink-500 to-pink-400 hover:from-pink-600 hover:to-pink-500 shadow-md flex flex-col items-center justify-center">
-                <CheckCircle className="h-6 w-6 mb-1" />
-                <span className="text-sm">Fun Challenge</span>
-              </Button>
-              <Button className="h-20 rounded-xl bg-gradient-to-r from-orange-500 to-orange-400 hover:from-orange-600 hover:to-orange-500 shadow-md flex flex-col items-center justify-center">
-                <BarChart className="h-6 w-6 mb-1" />
-                <span className="text-sm">Track Stars</span>
-              </Button>
+            <div className="grid grid-cols-1 gap-4">
+              <HabitGames 
+                habitId={habitId} 
+                habitName={habit.name}
+                ageGroup="kids" 
+              />
             </div>
+          </TabsContent>
+
+          <TabsContent value="track" className="space-y-4">
+            <HabitTracker 
+              habitId={habitId} 
+              habitName={habit.name}
+              ageGroup="kids" 
+            />
+            
+            <WeeklyPlanner 
+              habitId={habitId}
+              ageGroup="kids"
+            />
+          </TabsContent>
+          
+          <TabsContent value="create" className="space-y-4">
+            <MissionStatement ageGroup="kids" />
+            
+            <PhotoGallery 
+              habitId={habitId}
+              ageGroup="kids"
+            />
           </TabsContent>
 
           <TabsContent value="reflect" className="space-y-4">

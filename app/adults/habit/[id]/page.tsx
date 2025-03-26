@@ -1,6 +1,6 @@
 "use client"
-
 import { useState } from "react"
+import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -13,8 +13,9 @@ import videos from "@/lib/videos.json"
 import resources from "@/lib/resources.json"
 
 export default function HabitPage({ params }: { params: { id: string } }) {
-  const habitId = Number.parseInt(params.id)
-  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
+  // Simply access params directly in client components
+  const resolvedParams = React.use(params)
+  const habitId = Number.parseInt(resolvedParams.id)  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [reflections, setReflections] = useState<Record<string, string>>({})
 
   const habits = [

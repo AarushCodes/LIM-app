@@ -13,11 +13,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
-      <footer className="text-center py-4 text-sm text-gray-500">
-              Created by Aarush Khilosia
-            </footer>
+      <body>
+        {children}
+        <footer className="text-center py-4 text-sm text-gray-500">
+          Created by Aarush Khilosia
+        </footer>
+      </body>
     </html>
-    
   )
 }
