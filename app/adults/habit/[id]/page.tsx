@@ -15,7 +15,8 @@ import resources from "@/lib/resources.json"
 export default function HabitPage({ params }: { params: { id: string } }) {
   // Simply access params directly in client components
   const resolvedParams = React.use(params)
-  const habitId = Number.parseInt(resolvedParams.id)  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
+  const habitId = Number.parseInt(resolvedParams.id);
+  const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [reflections, setReflections] = useState<Record<string, string>>({})
 
   const habits = [
