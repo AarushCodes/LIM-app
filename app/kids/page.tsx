@@ -56,6 +56,35 @@ export default function KidsPage() {
             </div>
           </div>
         </div>
+        
+        <Card className="mb-8 border-2 border-orange-200">
+          <CardContent className="p-4">
+            <h2 className="text-xl font-bold text-orange-600 mb-3">Welcome to Waddle2Wellness!</h2>
+            <div className="bg-pink-100 rounded-lg p-3 mb-4 flex items-center">
+              <Image
+                src="/kids_penguin.webp?height=40&width=40"
+                width={40}
+                height={40}
+                alt="Frosty McFlap"
+                className="rounded-full border-2 border-pink-400 mr-3"
+              />
+              <p className="text-sm text-pink-700">
+                "Hi friends! I'm Frosty McFlap, and I'm here to help you learn about the 7 Habits!"
+              </p>
+            </div>
+            <p className="text-gray-700 mb-3">
+              The 7 Habits are like superpowers that help you make good choices and be your best self!
+            </p>
+            <p className="text-gray-700 mb-3">
+              Each habit teaches you something special about how to be successful and happy.
+              As you learn these habits, you'll become more responsible, creative, and kind!
+            </p>
+            <p className="text-gray-700">
+              Click on any habit below to start your adventure. You'll find fun activities, 
+              games, and stories to help you learn!
+            </p>
+          </CardContent>
+        </Card>
 
         <h2 className="text-2xl font-bold text-center mb-6 text-orange-600">Choose a Habit to Learn</h2>
 

@@ -57,6 +57,35 @@ export default function TeensPage() {
           </div>
         </div>
 
+        <Card className="mb-8 border-2 border-teal-200">
+          <CardContent className="p-4">
+            <h2 className="text-xl font-bold text-teal-600 mb-3">Welcome to Waddle2Wellness!</h2>
+            <div className="bg-blue-100 rounded-lg p-3 mb-4 flex items-center">
+              <Image
+                src="/cool_penguin.webp?height=40&width=40"
+                width={40}
+                height={40}
+                alt="Frosty McFlap"
+                className="rounded-full border-2 border-blue-400 mr-3"
+              />
+              <p className="text-sm text-blue-700">
+                "Hey there! These 7 Habits can seriously help you navigate the challenges of teen life!"
+              </p>
+            </div>
+            <p className="text-gray-700 mb-3">
+              The 7 Habits are powerful principles that can transform how you handle school, friendships, family relationships, and personal growth.
+            </p>
+            <p className="text-gray-700 mb-3">
+              Each habit builds on the previous ones, giving you skills to take control of your life, set meaningful goals, manage your time, 
+              build stronger relationships, and maintain balance.
+            </p>
+            <p className="text-gray-700">
+              Select any habit below to dive deeper. You'll find practical applications, activities, 
+              and strategies designed specifically for teenagers like you!
+            </p>
+          </CardContent>
+        </Card>
+
         <h2 className="text-2xl font-bold text-center mb-6 text-teal-600">Explore the 7 Habits</h2>
 
         <div className="grid grid-cols-1 gap-4">

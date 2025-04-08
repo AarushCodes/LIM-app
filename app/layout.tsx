@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: '7 Habits app',
+  title: 'Waddle2Wellness',
   description: 'Learn and practice the 7 Habits of Highly Effective People for your age group', 
 }
 
