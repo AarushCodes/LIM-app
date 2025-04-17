@@ -4,493 +4,223 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChevronLeft, Play, BookOpen, Download, Calendar, ExternalLink } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { ChevronLeft, Play, BookOpen } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Progress } from "@/components/ui/progress"
 import { VideoModal } from "@/components/video-modal"
+import { StoryModal } from "@/components/story-modal"
+import { HabitTracker } from "@/components/habit-tracker"
+import { WeeklyPlanner } from "@/components/weekly-planner"
+import { MissionStatement } from "@/components/mission-statement"
+import { PhotoGallery } from "@/components/photo-gallery"
 import videos from "@/lib/videos.json"
 import resources from "@/lib/resources.json"
 
 export default function HabitPage({ params }: { params: { id: string } }) {
-  // Simply access params directly in client components
   const resolvedParams = React.use(params)
-  const habitId = Number.parseInt(resolvedParams.id);
+  const habitId = Number.parseInt(resolvedParams.id)
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
+  const [isStoryModalOpen, setIsStoryModalOpen] = useState(false)
   const [reflections, setReflections] = useState<Record<string, string>>({})
 
   const habits = [
-    { id: 1, name: "Be Proactive", tagline: "You're in Charge!" },
-    { id: 2, name: "Begin With the End in Mind", tagline: "Have a Plan" },
-    { id: 3, name: "Put First Things First", tagline: "Work First, Then Play" },
-    { id: 4, name: "Think Win-Win", tagline: "Everyone Can Win" },
-    { id: 5, name: "Seek First to Understand", tagline: "Listen Before You Talk" },
-    { id: 6, name: "Synergize", tagline: "Together Is Better" },
-    { id: 7, name: "Sharpen the Saw", tagline: "Balance Feels Best" },
+    { id: 1, name: "Be Proactive", tagline: "Take Initiative!" },
+    { id: 2, name: "Begin With the End in Mind", tagline: "Set Your Vision" },
+    { id: 3, name: "Put First Things First", tagline: "Prioritize What Matters" },
+    { id: 4, name: "Think Win-Win", tagline: "Mutual Benefit" },
+    { id: 5, name: "Seek First to Understand", tagline: "Empathic Listening" },
+    { id: 6, name: "Synergize", tagline: "Collaborate for Success" },
+    { id: 7, name: "Sharpen the Saw", tagline: "Renew Yourself" },
   ]
 
   const habit = habits.find((h) => h.id === habitId) || habits[0]
   const videoData = videos.adults[habitId as keyof typeof videos.adults] || videos.adults["1"]
-  const resourceLinks = resources.resources[habitId as keyof typeof resources.resources] || resources.resources["1"]
+  const storyData = resources.adults.stories[habitId as keyof typeof resources.adults.stories] || resources.adults.stories["1"]
 
-  // Content specific to each habit
+  // Adult-oriented content for each habit
   const habitContent: Record<
     number,
     {
       description: string
-      quote: string
-      keyPrinciples: { title: string; description: string }[]
-      professionalApplications: string[]
-      personalApplications: string[]
-      commonChallenges: { challenge: string; solution: string }[]
-      exercises: { title: string; description: string }[]
+      benefits: string[]
+      examples: string[]
+      activities: string[]
+      reflection: string[]
     }
   > = {
     1: {
-      description:
-        "Being proactive is about taking responsibility for your life. It's about recognizing that your decisions, more than your conditions, determine your destiny. Proactive people recognize that they are 'response-able' – they don't blame circumstances, conditions, or conditioning for their behavior.",
-      quote:
-        '"Between stimulus and response, there is a space. In that space is our power to choose our response. In our response lies our growth and our freedom." - Viktor Frankl',
-      keyPrinciples: [
-        {
-          title: "Circle of Concern vs. Circle of Influence",
-          description:
-            "Focus your energy on things you can actually do something about, rather than worrying about conditions over which you have little or no control.",
-        },
-        {
-          title: "Proactive Language",
-          description:
-            "Use proactive language ('I can', 'I will', 'I prefer') rather than reactive language ('I can't', 'I have to', 'If only').",
-        },
-        {
-          title: "Taking Initiative",
-          description:
-            "Don't wait for things to happen or for others to take care of problems. Recognize your responsibility to make things happen.",
-        },
+      description: "Being proactive means taking responsibility for your actions and choices, not blaming circumstances or others. Proactive adults focus on solutions and take initiative in their personal and professional lives.",
+      benefits: [
+        "Greater control over outcomes",
+        "Improved relationships at work and home",
+        "Reduced stress from external events",
+        "Increased confidence and self-efficacy",
       ],
-      professionalApplications: [
-        "Taking ownership of projects and outcomes without being asked",
-        "Addressing conflicts directly rather than complaining to others",
-        "Anticipating problems and developing contingency plans",
-        "Proposing solutions rather than just identifying problems",
+      examples: [
+        "Addressing a workplace issue directly with a colleague",
+        "Starting a new healthy habit without waiting for motivation",
+        "Taking charge of your finances by budgeting proactively",
+        "Volunteering for a challenging project at work",
       ],
-      personalApplications: [
-        "Taking responsibility for your health through diet and exercise",
-        "Building financial security through planning and discipline",
-        "Addressing relationship issues directly and constructively",
-        "Creating the life you want rather than waiting for circumstances to change",
+      activities: [
+        "Identify an area in your life where you can be more proactive and take the first step today.",
+        "Replace a reactive phrase you use with a proactive one for a week.",
+        "List things you can control in a current challenge and focus your energy there.",
       ],
-      commonChallenges: [
-        {
-          challenge: "Feeling victimized by circumstances",
-          solution: "Identify what aspects you can control, even if it's just your response.",
-        },
-        {
-          challenge: "Blaming others for problems",
-          solution: "Ask 'What can I do differently?' rather than 'Why did they do that?'",
-        },
-        {
-          challenge: "Procrastination and avoidance",
-          solution: "Break tasks into smaller steps and commit to taking the first step.",
-        },
-      ],
-      exercises: [
-        {
-          title: "30-Day Language Challenge",
-          description: "Monitor your language for 30 days. Replace reactive phrases with proactive alternatives.",
-        },
-        {
-          title: "Circle of Influence Analysis",
-          description:
-            "List your concerns, then identify which ones you can directly influence. Focus your energy there.",
-        },
-        {
-          title: "Proactive Response Practice",
-          description: "Identify a challenging situation and write down multiple proactive responses you could take.",
-        },
+      reflection: [
+        "When did you last take initiative to solve a problem?",
+        "How do you react to unexpected challenges?",
+        "What is one area where you can be more proactive this month?",
       ],
     },
     2: {
-      description:
-        "Beginning with the end in mind means approaching any role you have in life with your values and directions clear. It's about connecting with your own uniqueness and the significant contribution that is yours to make. It's about defining the personal, moral, and ethical guidelines within which you can most happily express yourself.",
-      quote:
-        '"If the ladder is not leaning against the right wall, every step we take just gets us to the wrong place faster." - Stephen R. Covey',
-      keyPrinciples: [
-        {
-          title: "Personal Mission Statement",
-          description: "Create a personal mission statement that articulates your values and vision for your life.",
-        },
-        {
-          title: "Visualization",
-          description: "Mentally create and rehearse important events before they occur to align actions with values.",
-        },
-        {
-          title: "Roles and Goals",
-          description: "Identify your key roles in life and set goals for each that align with your personal mission.",
-        },
+      description: "Begin with the end in mind by setting clear goals and envisioning your desired outcomes. Adults use this habit to align daily actions with long-term values and ambitions.",
+      benefits: [
+        "Clarity in decision-making",
+        "Motivation to achieve goals",
+        "Better time management",
+        "Greater sense of purpose",
       ],
-      professionalApplications: [
-        "Creating a clear vision for your team or organization",
-        "Developing strategic plans with clear outcomes in mind",
-        "Setting meaningful career goals aligned with your values",
-        "Making decisions based on long-term vision rather than short-term convenience",
+      examples: [
+        "Creating a personal or family mission statement",
+        "Setting career advancement goals and mapping a plan",
+        "Visualizing a successful outcome before a big meeting",
+        "Planning retirement with specific milestones",
       ],
-      personalApplications: [
-        "Planning major life decisions with your values in mind",
-        "Creating a family mission statement to guide parenting decisions",
-        "Setting personal development goals aligned with your life purpose",
-        "Making financial decisions based on long-term priorities",
+      activities: [
+        "Write down your top 3 long-term goals and the first step for each.",
+        "Draft a personal mission statement.",
+        "Visualize a successful outcome for an upcoming challenge.",
       ],
-      commonChallenges: [
-        {
-          challenge: "Lack of clarity about personal values",
-          solution: "Reflect on peak experiences and what made them meaningful to identify core values.",
-        },
-        {
-          challenge: "Getting caught up in day-to-day urgencies",
-          solution: "Schedule regular time to review your mission statement and long-term goals.",
-        },
-        {
-          challenge: "Difficulty translating vision into concrete goals",
-          solution: "Use the SMART framework to create specific, measurable goals aligned with your vision.",
-        },
-      ],
-      exercises: [
-        {
-          title: "Personal Mission Statement Workshop",
-          description: "Create a personal mission statement that reflects your values, purpose, and vision.",
-        },
-        {
-          title: "Roles and Goals Exercise",
-          description: "Identify your key roles and create specific goals for each that align with your mission.",
-        },
-        {
-          title: "Eulogy Exercise",
-          description: "Write the eulogy you would want at your funeral. What legacy do you want to leave?",
-        },
+      reflection: [
+        "What does success look like for you in 5 years?",
+        "How do your daily actions align with your values?",
+        "What is one goal you want to start working toward now?",
       ],
     },
     3: {
-      description:
-        "Putting first things first is about organizing and executing around your most important priorities. It's living and being driven by the principles you value most, not by the agendas and forces around you. It's allocating your time based on priorities rather than allowing urgency to dictate your schedule.",
-      quote:
-        '"The key is not to prioritize what\'s on your schedule, but to schedule your priorities." - Stephen R. Covey',
-      keyPrinciples: [
-        {
-          title: "Time Management Matrix",
-          description:
-            "Categorize activities based on importance and urgency, focusing on important but not urgent activities (Quadrant II).",
-        },
-        {
-          title: "Big Rocks First",
-          description:
-            "Schedule your most important priorities (big rocks) before filling time with less important activities (sand).",
-        },
-        {
-          title: "Weekly Planning",
-          description:
-            "Plan weekly rather than daily to maintain perspective and ensure alignment with your roles and goals.",
-        },
+      description: "Put first things first by prioritizing important tasks over urgent distractions. Adults use this habit to manage time, reduce stress, and achieve meaningful progress.",
+      benefits: [
+        "Improved productivity",
+        "Less stress from last-minute tasks",
+        "More time for what matters most",
+        "Greater work-life balance",
       ],
-      professionalApplications: [
-        "Prioritizing strategic work over constant firefighting",
-        "Setting boundaries around your time and learning to say no",
-        "Delegating tasks that others can handle to focus on your unique contribution",
-        "Creating systems to handle recurring tasks efficiently",
+      examples: [
+        "Blocking time for exercise before checking emails",
+        "Completing a key project before attending to minor requests",
+        "Scheduling family time in your calendar",
+        "Saying no to non-essential meetings",
       ],
-      personalApplications: [
-        "Prioritizing health and relationships over less important activities",
-        "Creating family routines that reflect your values",
-        "Setting boundaries around technology use to focus on what matters",
-        "Scheduling time for personal development and renewal",
+      activities: [
+        "List your top priorities for the week and schedule them first.",
+        "Identify and eliminate one time-wasting activity.",
+        "Practice saying no to a request that doesn't align with your goals.",
       ],
-      commonChallenges: [
-        {
-          challenge: "Constant interruptions and distractions",
-          solution: "Create dedicated focus time and communicate boundaries clearly.",
-        },
-        {
-          challenge: "Difficulty saying no to requests",
-          solution: "Evaluate requests against your mission and priorities before committing.",
-        },
-        {
-          challenge: "Procrastination on important but not urgent tasks",
-          solution: "Schedule specific time blocks for important activities and protect that time.",
-        },
-      ],
-      exercises: [
-        {
-          title: "Time Management Matrix Analysis",
-          description:
-            "Track your activities for a week and categorize them in the four quadrants. Identify patterns and opportunities to shift to Quadrant II.",
-        },
-        {
-          title: "Weekly Planning Process",
-          description:
-            "Implement a weekly planning routine that starts with reviewing your mission and roles before scheduling tasks.",
-        },
-        {
-          title: "Delegation Audit",
-          description:
-            "Identify tasks you're currently doing that could be delegated or eliminated to focus on higher priorities.",
-        },
+      reflection: [
+        "What are your biggest time-wasters?",
+        "How do you ensure your priorities come first?",
+        "What is one thing you can do to improve your time management?",
       ],
     },
     4: {
-      description:
-        "Thinking win-win is a frame of mind and heart that constantly seeks mutual benefit in all human interactions. It's not about being nice, nor is it a quick-fix technique. It's a character-based approach to human interaction that seeks agreements or solutions that are mutually beneficial and satisfying.",
-      quote:
-        "\"Win-win is a belief in the Third Alternative. It's not your way or my way; it's a better way, a higher way.\" - Stephen R. Covey",
-      keyPrinciples: [
-        {
-          title: "Abundance Mentality",
-          description:
-            "Operate from a belief that there is plenty for everyone, rather than seeing life as a zero-sum game.",
-        },
-        {
-          title: "Balancing Courage and Consideration",
-          description:
-            "Seek solutions that require both the courage to express your needs and the consideration to understand others' needs.",
-        },
-        {
-          title: "Win-Win Agreements",
-          description:
-            "Create explicit agreements that clarify expectations, results, resources, accountability, and consequences.",
-        },
+      description: "Think win-win by seeking solutions that benefit everyone involved. Adults use this habit to build trust, resolve conflicts, and create lasting partnerships.",
+      benefits: [
+        "Stronger relationships",
+        "Better negotiation outcomes",
+        "Increased collaboration",
+        "Greater satisfaction in agreements",
       ],
-      professionalApplications: [
-        "Negotiating contracts that benefit all parties",
-        "Creating compensation systems that reward both individual and team performance",
-        "Resolving conflicts by seeking solutions that address all parties' concerns",
-        "Building partnerships based on mutual benefit rather than competition",
+      examples: [
+        "Negotiating a contract that benefits both parties",
+        "Finding a compromise with a partner or spouse",
+        "Collaborating with colleagues for mutual success",
+        "Sharing credit for a team achievement",
       ],
-      personalApplications: [
-        "Approaching marriage and family relationships with a win-win mindset",
-        "Teaching children to resolve conflicts through mutual benefit",
-        "Negotiating household responsibilities fairly",
-        "Building friendships based on mutual support and growth",
+      activities: [
+        "Identify a current conflict and brainstorm a win-win solution.",
+        "Acknowledge someone else's contribution in a group project.",
+        "Practice active listening in your next negotiation.",
       ],
-      commonChallenges: [
-        {
-          challenge: "Competitive environments that encourage win-lose thinking",
-          solution: "Demonstrate how win-win solutions create better long-term results and relationships.",
-        },
-        {
-          challenge: "Difficulty identifying others' needs and wants",
-          solution: "Practice empathic listening to understand others' perspectives before proposing solutions.",
-        },
-        {
-          challenge: "Fear that seeking mutual benefit means compromising your needs",
-          solution:
-            "Distinguish between positions (what you want) and interests (why you want it) to find creative solutions.",
-        },
-      ],
-      exercises: [
-        {
-          title: "Win-Win Negotiation Practice",
-          description:
-            "Identify a current conflict and brainstorm solutions that would meet all parties' key interests.",
-        },
-        {
-          title: "Abundance Mentality Journal",
-          description: "Record instances of scarcity thinking and reframe them from an abundance perspective.",
-        },
-        {
-          title: "Win-Win Agreement Template",
-          description:
-            "Create a template for win-win agreements that clarifies expectations, results, resources, accountability, and consequences.",
-        },
+      reflection: [
+        "When did you last create a win-win outcome?",
+        "How do you handle disagreements at work or home?",
+        "What is one relationship that could benefit from more win-win thinking?",
       ],
     },
     5: {
-      description:
-        "Seeking first to understand, then to be understood is the principle of empathic communication. It involves listening with the intent to understand, not with the intent to reply. It means getting inside another person's frame of reference to see the world as they see it and understand their paradigm and concerns.",
-      quote:
-        '"Most people do not listen with the intent to understand; they listen with the intent to reply." - Stephen R. Covey',
-      keyPrinciples: [
-        {
-          title: "Empathic Listening",
-          description:
-            "Listen with your ears, eyes, and heart to understand both the content and the feeling behind communication.",
-        },
-        {
-          title: "Psychological Air",
-          description: "Give others 'psychological air' by understanding them first before seeking to be understood.",
-        },
-        {
-          title: "Diagnose Before Prescribing",
-          description:
-            "Understand the problem thoroughly before attempting to provide solutions, just as a doctor diagnoses before prescribing.",
-        },
+      description: "Seek first to understand, then to be understood by practicing empathic listening. Adults use this habit to improve communication and resolve misunderstandings.",
+      benefits: [
+        "Deeper connections with others",
+        "Fewer conflicts and misunderstandings",
+        "Greater influence and trust",
+        "Improved problem-solving",
       ],
-      professionalApplications: [
-        "Improving customer service by truly understanding customer needs",
-        "Building trust with team members through empathic leadership",
-        "Resolving conflicts by understanding all perspectives before seeking solutions",
-        "Creating products and services that truly meet market needs",
+      examples: [
+        "Listening to a colleague's concerns before offering advice",
+        "Asking clarifying questions in a disagreement",
+        "Reflecting back what you heard in a conversation",
+        "Pausing to understand your partner's feelings",
       ],
-      personalApplications: [
-        "Strengthening marriage and family relationships through deeper understanding",
-        "Parenting effectively by understanding children's perspectives",
-        "Building meaningful friendships based on mutual understanding",
-        "Resolving interpersonal conflicts through empathic communication",
+      activities: [
+        "Have a conversation where you only listen and ask questions.",
+        "Practice summarizing what someone said before responding.",
+        "Notice your urge to interrupt and resist it.",
       ],
-      commonChallenges: [
-        {
-          challenge: "Tendency to prepare a response while others are speaking",
-          solution: "Practice focusing completely on understanding before even thinking about your response.",
-        },
-        {
-          challenge: "Filtering what others say through your own paradigms",
-          solution: "Recognize your biases and consciously set them aside to understand others' perspectives.",
-        },
-        {
-          challenge: "Rushing to provide solutions before understanding the problem",
-          solution: "Ask clarifying questions and reflect back what you've heard before offering advice.",
-        },
-      ],
-      exercises: [
-        {
-          title: "Empathic Listening Practice",
-          description:
-            "Have a conversation where you focus solely on understanding the other person. Reflect back what you hear before responding.",
-        },
-        {
-          title: "Perspective-Taking Exercise",
-          description:
-            "For a current conflict, write a description of the situation from the other person's perspective as fairly as possible.",
-        },
-        {
-          title: "Communication Audit",
-          description:
-            "Record yourself in conversations and analyze how much time you spend trying to understand versus trying to be understood.",
-        },
+      reflection: [
+        "How well do you listen to others?",
+        "What gets in the way of understanding first?",
+        "How can you improve your listening skills?",
       ],
     },
     6: {
-      description:
-        "Synergizing is the habit of creative cooperation. It's teamwork, open-mindedness, and finding new solutions to old problems. Synergy catalyzes, unifies, and unleashes the greatest powers within people. It's about valuing differences and bringing different perspectives together.",
-      quote: '"Strength lies in differences, not in similarities." - Stephen R. Covey',
-      keyPrinciples: [
-        {
-          title: "Value Differences",
-          description:
-            "See differences in perspective as opportunities for creative solutions, not as obstacles to overcome.",
-        },
-        {
-          title: "Third Alternative",
-          description: "Seek solutions that are better than what any individual would propose on their own.",
-        },
-        {
-          title: "Creative Cooperation",
-          description:
-            "Work together to create something new, rather than simply compromising between existing positions.",
-        },
+      description: "Synergize by working collaboratively to achieve better results than you could alone. Adults use this habit to leverage diverse strengths and foster innovation.",
+      benefits: [
+        "More creative solutions",
+        "Stronger teams",
+        "Greater appreciation for diversity",
+        "Enhanced productivity",
       ],
-      professionalApplications: [
-        "Building diverse teams that leverage different strengths and perspectives",
-        "Facilitating brainstorming sessions that generate innovative solutions",
-        "Creating collaborative partnerships across departments or organizations",
-        "Developing products and services through interdisciplinary approaches",
+      examples: [
+        "Participating in a cross-functional team at work",
+        "Combining ideas with a partner to solve a problem",
+        "Encouraging input from all team members",
+        "Celebrating group achievements",
       ],
-      personalApplications: [
-        "Strengthening family relationships by valuing each member's unique contribution",
-        "Resolving conflicts through creative solutions that meet everyone's needs",
-        "Combining different parenting styles to create a balanced approach",
-        "Building community through collaborative projects",
+      activities: [
+        "Work with someone different from you on a project.",
+        "List the unique strengths of your team or family.",
+        "Brainstorm solutions with a group and choose the best one together.",
       ],
-      commonChallenges: [
-        {
-          challenge: "Homogeneous teams or social circles that limit perspective",
-          solution: "Intentionally seek out and include diverse perspectives in decision-making.",
-        },
-        {
-          challenge: "Defensiveness when ideas are challenged",
-          solution: "View different perspectives as adding to, not threatening, your understanding.",
-        },
-        {
-          challenge: "Rushing to compromise rather than seeking synergy",
-          solution: "Take time to fully understand all perspectives before seeking a solution.",
-        },
-      ],
-      exercises: [
-        {
-          title: "Synergistic Problem-Solving",
-          description:
-            "Identify a challenge and bring together people with different perspectives to find a creative solution.",
-        },
-        {
-          title: "Strength Mapping",
-          description:
-            "Map the different strengths in your team or family and identify how they can complement each other.",
-        },
-        {
-          title: "Third Alternative Practice",
-          description:
-            "For a current disagreement, practice saying 'I seek a solution that's better than either of us has thought of yet.'",
-        },
+      reflection: [
+        "When did teamwork help you achieve more?",
+        "How do you handle differences in a group?",
+        "What can you do to foster more synergy at work or home?",
       ],
     },
     7: {
-      description:
-        "Sharpening the saw is about preserving and enhancing your greatest asset: yourself. It means having a balanced program for self-renewal in the four areas of your life: physical, social/emotional, mental, and spiritual. It's taking time to renew yourself regularly to create sustainable, long-term effectiveness.",
-      quote: '"We must never become too busy sawing to take time to sharpen the saw." - Stephen R. Covey',
-      keyPrinciples: [
-        {
-          title: "Four Dimensions of Renewal",
-          description: "Maintain balance across physical, social/emotional, mental, and spiritual dimensions of life.",
-        },
-        {
-          title: "Continuous Improvement",
-          description: "Commit to ongoing growth and development in all areas of life.",
-        },
-        {
-          title: "Sustainable Pace",
-          description: "Work at a pace that can be maintained over the long term, avoiding burnout.",
-        },
+      description: "Sharpen the saw by regularly renewing your body, mind, heart, and spirit. Adults use this habit to maintain balance, prevent burnout, and sustain long-term effectiveness.",
+      benefits: [
+        "Increased energy and resilience",
+        "Better health and well-being",
+        "Greater creativity and focus",
+        "Improved relationships",
       ],
-      professionalApplications: [
-        "Creating a sustainable work-life balance",
-        "Investing in ongoing professional development and learning",
-        "Building resilience to handle workplace stress and challenges",
-        "Developing leadership capacity through personal growth",
+      examples: [
+        "Taking regular breaks during work",
+        "Scheduling time for hobbies and relaxation",
+        "Practicing mindfulness or meditation",
+        "Spending quality time with loved ones",
       ],
-      personalApplications: [
-        "Maintaining physical health through proper nutrition, exercise, and rest",
-        "Nurturing important relationships through quality time and attention",
-        "Stimulating mental growth through reading, learning, and creative activities",
-        "Developing spiritual dimension through meditation, reflection, or religious practice",
+      activities: [
+        "Plan a self-care activity for each area: body, mind, heart, spirit.",
+        "Try a new hobby or class this month.",
+        "Reflect on what renews you and schedule it weekly.",
       ],
-      commonChallenges: [
-        {
-          challenge: "Feeling too busy to take time for renewal",
-          solution: "Recognize that renewal increases effectiveness and actually saves time in the long run.",
-        },
-        {
-          challenge: "Focusing on one dimension while neglecting others",
-          solution: "Create a balanced renewal plan that addresses all four dimensions.",
-        },
-        {
-          challenge: "Inconsistency in renewal practices",
-          solution: "Schedule renewal activities as non-negotiable appointments with yourself.",
-        },
-      ],
-      exercises: [
-        {
-          title: "Personal Renewal Assessment",
-          description:
-            "Evaluate your current practices in each of the four dimensions and identify areas for improvement.",
-        },
-        {
-          title: "Weekly Renewal Planning",
-          description:
-            "Schedule specific activities for physical, social/emotional, mental, and spiritual renewal each week.",
-        },
-        {
-          title: "Renewal Habits Development",
-          description:
-            "Identify and implement one new habit in each dimension that will contribute to your overall effectiveness.",
-        },
+      reflection: [
+        "How do you recharge after a busy week?",
+        "What area of your life needs more renewal?",
+        "What is one habit you can start to sharpen your saw?",
       ],
     },
   }
@@ -504,17 +234,8 @@ export default function HabitPage({ params }: { params: { id: string } }) {
     })
   }
 
-  const getPreviousHabitId = () => {
-    return habitId > 1 ? habitId - 1 : 7
-  }
-
-  const getNextHabitId = () => {
-    return habitId < 7 ? habitId + 1 : 1
-  }
-
-  const openResourceLink = (url: string) => {
-    window.open(url, "_blank")
-  }
+  const getPreviousHabitId = () => (habitId > 1 ? habitId - 1 : 7)
+  const getNextHabitId = () => (habitId < 7 ? habitId + 1 : 1)
 
   return (
     <main className="flex min-h-screen flex-col p-4 bg-gradient-to-b from-purple-50 to-indigo-50">
@@ -530,167 +251,142 @@ export default function HabitPage({ params }: { params: { id: string } }) {
           </h1>
         </div>
 
-        <Card className="mb-6 border-purple-200">
-          <CardHeader className="pb-2">
-            <div className="flex justify-between items-center">
-              <CardTitle className="text-xl font-bold text-indigo-600">{habit.tagline}</CardTitle>
-              <Image
-                src="/pro_penguin.webp?height=50&width=50"
-                width={50}
-                height={50}
-                alt="Frosty McFlap"
-                className="rounded-full border-2 border-purple-400"
-              />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-700 mb-4">{currentHabit.description}</p>
+        <div className="bg-white rounded-xl shadow-md p-4 mb-6">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold text-indigo-500">{habit.tagline}</h2>
+            <Image
+              src="/pro_penguin.webp?height=60&width=60"
+              width={60}
+              height={60}
+              alt="Frosty McFlap"
+              className="rounded-full border-4 border-purple-400"
+            />
+          </div>
 
-            <div className="bg-indigo-50 border-l-4 border-indigo-400 p-3 italic text-indigo-700 text-sm mb-4">
-              {currentHabit.quote}
-            </div>
+          <p className="text-gray-600 mb-4">{currentHabit.description}</p>
 
-            <div className="flex justify-between items-center text-sm text-gray-500">
-              <div className="flex items-center">
-                <span className="mr-2">Progress:</span>
-                <Progress value={33} className="w-24 h-2" />
-              </div>
-              <div className="flex items-center">
-                <Calendar className="h-4 w-4 mr-1" />
-                <span>Updated: Mar 22</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          <div className="bg-indigo-100 rounded-lg p-3 mb-4 flex items-center">
+            <Image
+              src="/pro_bunny.webp?height=50&width=50"
+              width={50}
+              height={50}
+              alt="Hopper"
+              className="rounded-full border-2 border-indigo-400 mr-3"
+            />
+            <p className="text-sm text-indigo-700">"Here's how you can use this habit in your adult life!"</p>
+          </div>
+        </div>
 
-        <Tabs defaultValue="principles" className="mb-6">
-          <TabsList className="grid grid-cols-3 mb-4">
-            <TabsTrigger value="principles">Principles</TabsTrigger>
-            <TabsTrigger value="applications">Applications</TabsTrigger>
-            <TabsTrigger value="challenges">Challenges</TabsTrigger>
+        <Tabs defaultValue="learn" className="mb-6">
+          <TabsList className="grid grid-cols-5 mb-4">
+            <TabsTrigger value="learn">Learn</TabsTrigger>
+            <TabsTrigger value="practice">Practice</TabsTrigger>
+            <TabsTrigger value="track">Track</TabsTrigger>
+            <TabsTrigger value="create">Create</TabsTrigger>
+            <TabsTrigger value="reflect">Reflect</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="principles" className="space-y-4">
-            {currentHabit.keyPrinciples.map((principle, index) => (
-              <Card key={index}>
-                <CardContent className="p-4">
-                  <h3 className="text-lg font-bold text-purple-600 mb-2">{principle.title}</h3>
-                  <p className="text-gray-700">{principle.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-
-            <Button
-              className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 shadow-md"
-              onClick={() => setIsVideoModalOpen(true)}
-            >
-              <Play className="h-4 w-4 mr-2" />
-              Watch Video Explanation
-            </Button>
-          </TabsContent>
-
-          <TabsContent value="applications" className="space-y-4">
+          <TabsContent value="learn" className="space-y-4">
             <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-md font-bold text-purple-600">Professional Applications</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <ul className="list-disc pl-5 text-gray-700 space-y-1">
-                  {currentHabit.professionalApplications.map((app, index) => (
-                    <li key={index}>{app}</li>
+              <CardContent className="p-4">
+                <h3 className="text-lg font-bold text-purple-600 mb-3">Why This Habit Matters</h3>
+                <ul className="list-disc pl-6 text-gray-600 space-y-2">
+                  {currentHabit.benefits.map((benefit, index) => (
+                    <li key={index}>{benefit}</li>
                   ))}
                 </ul>
               </CardContent>
             </Card>
 
             <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-md font-bold text-purple-600">Personal Applications</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-0">
-                <ul className="list-disc pl-5 text-gray-700 space-y-1">
-                  {currentHabit.personalApplications.map((app, index) => (
-                    <li key={index}>{app}</li>
+              <CardContent className="p-4">
+                <h3 className="text-lg font-bold text-purple-600 mb-3">Examples</h3>
+                <ul className="list-disc pl-6 text-gray-600 space-y-2">
+                  {currentHabit.examples.map((example, index) => (
+                    <li key={index}>{example}</li>
                   ))}
                 </ul>
               </CardContent>
             </Card>
 
-            <textarea
-              className="w-full p-3 border border-purple-200 rounded-md min-h-[100px] text-gray-700"
-              placeholder="Reflect on how you can apply this habit in your own life..."
-              // value={reflections[`${habitId}-application`] || ""}
-              // onChange={(e) => handleReflectionChange(0, e.target.value)}
-            />
+            <div className="grid grid-cols-2 gap-4">
+              <Button
+                className="h-20 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-400 hover:from-purple-600 hover:to-indigo-500 shadow-md flex flex-col items-center justify-center"
+                onClick={() => setIsVideoModalOpen(true)}
+              >
+                <Play className="h-6 w-6 mb-1" />
+                <span className="text-sm">Watch Video</span>
+              </Button>
+              <Button
+                className="h-20 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-400 hover:from-indigo-600 hover:to-purple-500 shadow-md flex flex-col items-center justify-center"
+                onClick={() => setIsStoryModalOpen(true)}
+              >
+                <BookOpen className="h-6 w-6 mb-1" />
+                <span className="text-sm">Story Time</span>
+              </Button>
+            </div>
           </TabsContent>
 
-          <TabsContent value="challenges" className="space-y-4">
-            {currentHabit.commonChallenges.map((item, index) => (
-              <Card key={index}>
-                <CardContent className="p-4">
-                  <h3 className="text-md font-bold text-purple-600 mb-1">{item.challenge}</h3>
-                  <p className="text-gray-700">
-                    <span className="font-medium">Solution:</span> {item.solution}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-
-            <textarea
-              className="w-full p-3 border border-purple-200 rounded-md min-h-[100px] text-gray-700"
-              placeholder="What challenges do you face with this habit? How might you overcome them?"
-              // value={reflections[`${habitId}-challenges`] || ""}
-              // onChange={(e) => handleReflectionChange(1, e.target.value)}
-            />
-          </TabsContent>
-
-          <TabsContent value="resources" className="space-y-4">
-            <div className="grid grid-cols-1 gap-3">
-              {currentHabit.exercises.map((exercise, index) => (
-                <Card key={index}>
-                  <CardContent className="p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="text-md font-bold text-purple-600 mb-1">{exercise.title}</h3>
-                        <p className="text-gray-700 text-sm">{exercise.description}</p>
+          <TabsContent value="practice" className="space-y-4">
+            <Card>
+              <CardContent className="p-4">
+                <h3 className="text-lg font-bold text-purple-600 mb-3">Practice Activities</h3>
+                <ul className="space-y-3">
+                  {currentHabit.activities.map((activity, index) => (
+                    <li key={index} className="flex items-start">
+                      <div className="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center mr-2 mt-0.5 flex-shrink-0">
+                        <span className="text-xs font-bold text-indigo-600">{index + 1}</span>
                       </div>
-                      <Button size="sm" variant="outline" className="border-purple-200 text-purple-600">
-                        Start
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                      <span className="text-gray-700">{activity}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </TabsContent>
 
-            <div className="mt-4">
-              <h3 className="text-md font-bold text-purple-600 mb-3">Additional Resources</h3>
-              <div className="grid grid-cols-1 gap-2">
-                {resourceLinks.map((resource, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between bg-white p-3 rounded-lg border border-purple-100"
-                  >
-                    <div className="flex items-center">
-                      {resource.type === "Article" && <BookOpen className="h-4 w-4 text-indigo-500 mr-2" />}
-                      {resource.type === "Video" && <Play className="h-4 w-4 text-indigo-500 mr-2" />}
-                      {resource.type === "Download" && <Download className="h-4 w-4 text-indigo-500 mr-2" />}
-                      {resource.type === "Workshop" && <Calendar className="h-4 w-4 text-indigo-500 mr-2" />}
-                      <span className="text-gray-700 text-sm">{resource.title}</span>
-                    </div>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="h-8 text-indigo-600"
-                      onClick={() => openResourceLink(resource.url)}
-                    >
-                      <span className="mr-1">{resource.type === "Download" ? "Download" : "View"}</span>
-                      <ExternalLink className="h-3 w-3" />
-                    </Button>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <TabsContent value="track" className="space-y-4">
+            <HabitTracker 
+              habitId={habitId} 
+              habitName={habit.name}
+              ageGroup="adults" 
+            />
+            <WeeklyPlanner 
+              habitId={habitId}
+              ageGroup="adults"
+            />
+          </TabsContent>
+
+          <TabsContent value="create" className="space-y-4">
+            <MissionStatement ageGroup="adults" />
+            <PhotoGallery 
+              habitId={habitId}
+              ageGroup="adults"
+            />
+          </TabsContent>
+
+          <TabsContent value="reflect" className="space-y-4">
+            <Card>
+              <CardContent className="p-4">
+                <h3 className="text-lg font-bold text-purple-600 mb-3">Reflect On These Questions</h3>
+                <ul className="space-y-4">
+                  {currentHabit.reflection.map((question, index) => (
+                    <li key={index} className="bg-indigo-50 p-3 rounded-lg">
+                      <p className="text-indigo-800 mb-2">{question}</p>
+                      <textarea
+                        className="bg-white rounded border border-indigo-200 p-2 w-full min-h-[60px] text-gray-700"
+                        placeholder="Write your thoughts here..."
+                        value={reflections[`${habitId}-${index}`] || ""}
+                        onChange={(e) => handleReflectionChange(index, e.target.value)}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Button className="w-full bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 shadow-md">
+              Save My Thoughts
+            </Button>
           </TabsContent>
         </Tabs>
 
@@ -713,6 +409,13 @@ export default function HabitPage({ params }: { params: { id: string } }) {
         onClose={() => setIsVideoModalOpen(false)}
         videoUrl={videoData.url}
         videoTitle={videoData.title}
+      />
+
+      <StoryModal
+        isOpen={isStoryModalOpen}
+        onClose={() => setIsStoryModalOpen(false)}
+        title={storyData.title}
+        content={storyData.content}
       />
     </main>
   )

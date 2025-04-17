@@ -63,6 +63,38 @@
       }
     }
   },
+  "adults": {
+    "stories": {
+      "1": {
+        "title": "The Power of Proactivity",
+        "content": "When Maya's company faced a sudden crisis, most employees waited for instructions. Maya, however, took initiative—gathering facts, proposing solutions, and volunteering to lead a response team. Her proactive approach not only helped the company recover but also earned her a promotion."
+      },
+      "2": {
+        "title": "Vision for the Future",
+        "content": "After years in a comfortable job, Raj realized he wanted more meaning in his work. He wrote a personal mission statement, set clear goals, and began taking steps toward a new career. Within two years, he was thriving in a field he loved."
+      },
+      "3": {
+        "title": "First Things First",
+        "content": "Balancing work, family, and health was overwhelming for Priya. She learned to prioritize her most important tasks each week, scheduling time for exercise, family dinners, and focused work. Her stress dropped, and her relationships improved."
+      },
+      "4": {
+        "title": "Win-Win Negotiation",
+        "content": "During a tough contract negotiation, Sam listened to the other party's needs and proposed a solution that benefited both sides. The deal succeeded, and both companies built a lasting partnership."
+      },
+      "5": {
+        "title": "Listening First",
+        "content": "As a manager, Aisha noticed team conflicts were escalating. She began listening deeply to each team member before offering solutions. This built trust and helped the team resolve issues collaboratively."
+      },
+      "6": {
+        "title": "Synergy at Work",
+        "content": "A cross-functional team at a tech company struggled to innovate until they started valuing each other's diverse perspectives. By combining their strengths, they launched a successful new product."
+      },
+      "7": {
+        "title": "Sharpening the Saw",
+        "content": "After years of burnout, David committed to regular self-renewal—exercising, reading, and spending time with loved ones. He found renewed energy and creativity in both his personal and professional life."
+      }
+    }
+  },
   "resources": {
     "1": [
       {

@@ -6,6 +6,13 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-4 bg-gradient-to-b from-blue-50 to-purple-50">
       <div className="max-w-md w-full mx-auto flex flex-col items-center justify-center gap-8 py-8">
+        <Image
+          src="/main_logo.png"
+          width={120}
+          height={120}
+          alt="Waddle2Wellness Logo"
+          className="mb-2 drop-shadow-md"
+        />
         <div className="flex items-center justify-center gap-4">
           <Image
             src="/cool_penguin.webp?height=80&width=80"

@@ -78,6 +78,13 @@ export default function AboutPage() {
                 <li>Frosty McFlap 🐧 – our friendly penguin mascot, guiding you on this journey!</li>
               </ul>
             </div>
+            <div className="mt-8">
+              <h3 className="text-xl font-semibold text-red-600 mb-2">Disclaimer</h3>
+              <p className="text-gray-600 text-sm">
+                This is a self-help app MEANT FOR EDUCATIONAL AND PERSONALITY DEVELOPMENT PURPOSES only. This app aims to help you with your journey to success and overcome your hardships in between but does not guarantee it. The balance of emotions taught by this app is not meant to be taken as professional advice and is only a friendly suggestion. Seek Professional Advice if necessary.<br/><br/>
+                Any resemblance to real life situations and stories are a mere coincidence until and unless mentioned. The app does not intend to hurt anyone's feelings, or disrespect or defame any caste, race, religion, place, personality, animal, etc. The stories are purely a work of fiction until mentioned under case study section. Case studies are also well-known facts, and effort has been taken to ensure that there is no controversial statement.
+              </p>
+            </div>
           </CardContent>
         </Card>
 
