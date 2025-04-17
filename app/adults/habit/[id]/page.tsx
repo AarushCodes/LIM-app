@@ -17,8 +17,7 @@ import videos from "@/lib/videos.json"
 import resources from "@/lib/resources.json"
 
 export default function HabitPage({ params }: { params: { id: string } }) {
-  const resolvedParams = React.use(params)
-  const habitId = Number.parseInt(resolvedParams.id)
+  const habitId = parseInt(params.id)
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
   const [isStoryModalOpen, setIsStoryModalOpen] = useState(false)
   const [reflections, setReflections] = useState<Record<string, string>>({})
@@ -34,8 +33,8 @@ export default function HabitPage({ params }: { params: { id: string } }) {
   ]
 
   const habit = habits.find((h) => h.id === habitId) || habits[0]
-  const videoData = videos.adults[habitId as keyof typeof videos.adults] || videos.adults["1"]
-  const storyData = resources.adults.stories[habitId as keyof typeof resources.adults.stories] || resources.adults.stories["1"]
+  const videoData = videos.adults[String(habitId) as keyof typeof videos.adults] || videos.adults["1"]
+  const storyData = resources.adults.stories[String(habitId) as keyof typeof resources.adults.stories] || resources.adults.stories["1"]
 
   // Adult-oriented content for each habit
   const habitContent: Record<
@@ -348,7 +347,6 @@ export default function HabitPage({ params }: { params: { id: string } }) {
           <TabsContent value="track" className="space-y-4">
             <HabitTracker 
               habitId={habitId} 
-              habitName={habit.name}
               ageGroup="adults" 
             />
             <WeeklyPlanner 
