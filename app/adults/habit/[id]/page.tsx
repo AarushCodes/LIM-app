@@ -5,10 +5,10 @@ import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronLeft, Play, BookOpen } from "lucide-react"
+import { ChevronLeft, Play, FileText } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { VideoModal } from "@/components/video-modal"
-import { StoryModal } from "@/components/story-modal"
+import { CaseStudyModal } from "@/components/case-study-modal"
 import { HabitTracker } from "@/components/habit-tracker"
 import { WeeklyPlanner } from "@/components/weekly-planner"
 import { MissionStatement } from "@/components/mission-statement"
@@ -19,7 +19,7 @@ import resources from "@/lib/resources.json"
 export default function HabitPage({ params }: { params: { id: string } }) {
   const habitId = parseInt(params.id)
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false)
-  const [isStoryModalOpen, setIsStoryModalOpen] = useState(false)
+  const [isCaseStudyModalOpen, setIsCaseStudyModalOpen] = useState(false)
   const [reflections, setReflections] = useState<Record<string, string>>({})
 
   const habits = [
@@ -34,9 +34,8 @@ export default function HabitPage({ params }: { params: { id: string } }) {
 
   const habit = habits.find((h) => h.id === habitId) || habits[0]
   const videoData = videos.adults[String(habitId) as keyof typeof videos.adults] || videos.adults["1"]
-  const storyData = resources.adults.stories[String(habitId) as keyof typeof resources.adults.stories] || resources.adults.stories["1"]
+  const caseStudyData = resources.adults.caseStudies[String(habitId) as keyof typeof resources.adults.caseStudies] || resources.adults.caseStudies["1"]
 
-  // Adult-oriented content for each habit
   const habitContent: Record<
     number,
     {
@@ -318,10 +317,10 @@ export default function HabitPage({ params }: { params: { id: string } }) {
               </Button>
               <Button
                 className="h-20 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-400 hover:from-indigo-600 hover:to-purple-500 shadow-md flex flex-col items-center justify-center"
-                onClick={() => setIsStoryModalOpen(true)}
+                onClick={() => setIsCaseStudyModalOpen(true)}
               >
-                <BookOpen className="h-6 w-6 mb-1" />
-                <span className="text-sm">Story Time</span>
+                <FileText className="h-6 w-6 mb-1" />
+                <span className="text-sm">Case Study</span>
               </Button>
             </div>
           </TabsContent>
@@ -345,11 +344,11 @@ export default function HabitPage({ params }: { params: { id: string } }) {
           </TabsContent>
 
           <TabsContent value="track" className="space-y-4">
-            <HabitTracker 
-              habitId={habitId} 
-              ageGroup="adults" 
+            <HabitTracker
+              habitId={habitId}
+              ageGroup="adults"
             />
-            <WeeklyPlanner 
+            <WeeklyPlanner
               habitId={habitId}
               ageGroup="adults"
             />
@@ -357,7 +356,7 @@ export default function HabitPage({ params }: { params: { id: string } }) {
 
           <TabsContent value="create" className="space-y-4">
             <MissionStatement ageGroup="adults" />
-            <PhotoGallery 
+            <PhotoGallery
               habitId={habitId}
               ageGroup="adults"
             />
@@ -409,11 +408,11 @@ export default function HabitPage({ params }: { params: { id: string } }) {
         videoTitle={videoData.title}
       />
 
-      <StoryModal
-        isOpen={isStoryModalOpen}
-        onClose={() => setIsStoryModalOpen(false)}
-        title={storyData.title}
-        content={storyData.content}
+      <CaseStudyModal
+        isOpen={isCaseStudyModalOpen}
+        onClose={() => setIsCaseStudyModalOpen(false)}
+        title={caseStudyData.title}
+        content={caseStudyData.content}
       />
     </main>
   )
