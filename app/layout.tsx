@@ -16,7 +16,7 @@ export default function RootLayout({
       <body>
         {children}
         <footer className="text-center py-4 text-sm text-gray-500">
-          Created by Aarush Khilosia
+          Developer: Aarush Khilosia
         </footer>
       </body>
     </html>
