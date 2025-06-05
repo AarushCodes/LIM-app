@@ -37,9 +37,6 @@ export default function Home() {
         <p className="text-center text-gray-600 max-w-xs">
           Learn and practice the 7 Habits of Highly Effective People for your age group
         </p>
-        <p className="text-center text-gray-500 max-w-xs">
-          Made by Aarush Khilosia
-        </p>
         
         <div className="grid grid-cols-1 gap-6 w-full">
           <Link href="/kids" className="w-full">
@@ -82,4 +79,3 @@ export default function Home() {
     </main>
   )
 }
-
